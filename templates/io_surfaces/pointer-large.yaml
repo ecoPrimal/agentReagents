@@ -1,0 +1,89 @@
+# I/O Surface Template: pointer-large
+#
+# Workstation — mouse + keyboard, large viewport, no spatial.
+# Not "desktop". Just the channels that happen to be open.
+
+name: io-surface-pointer-large
+version: "1.0.0"
+description: >-
+  Pointer-only surface with large viewport, physical keyboard, wired network.
+  Equivalent to a development workstation channel configuration.
+
+io_surface:
+  preset: pointer-large
+  channels:
+    display:
+      active: true
+      width: 2560
+      height: 1440
+      dpr: 1
+      color_depth: 24
+      orientation: landscape-primary
+    touch:
+      active: false
+    mouse:
+      active: true
+      hover: true
+      fine: true
+      polling_hz: 1000
+    keyboard:
+      active: true
+      virtual: false
+    speaker:
+      active: true
+      sample_rate: 96000
+    mic:
+      active: true
+      mirror: speaker
+    camera:
+      active: true
+      mirror: display
+    gyro:
+      active: false
+    vibrate:
+      active: false
+      mirror: touch
+    network:
+      active: true
+      effective_type: "4g"
+      downlink_mbps: 1000
+      rtt_ms: 2
+      save_data: false
+    storage:
+      active: true
+    battery:
+      active: false
+    gps:
+      active: false
+
+  profile:
+    - pointer-only
+    - large
+
+  mirrors:
+    - input: mic
+      output: speaker
+      medium: audio
+    - input: camera
+      output: display
+      medium: visual
+
+  browser_emulation:
+    user_agent: "Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0"
+    device_scale_factor: 1
+    is_mobile: false
+    has_touch: false
+    viewport:
+      width: 2560
+      height: 1440
+
+  css_vars:
+    --io-width: "2560px"
+    --io-height: "1440px"
+    --io-dpr: "1"
+    --io-min-tap: "24px"
+    --io-touch-points: "0"
+
+  body_classes:
+    - io-pointer-only
+    - io-large

@@ -1,0 +1,54 @@
+# I/O Surface Template: headless
+#
+# CI / server / daemon — no display, no input, no sensors.
+# Only network + storage channels open.
+# The membrane still works. It just has no visual or tactile surface.
+
+name: io-surface-headless
+version: "1.0.0"
+description: >-
+  Headless surface — 2 of 13 channels open (network + storage).
+  No display, no input, no audio, no sensors.
+  For CI pipelines, daemons, background workers.
+
+io_surface:
+  preset: headless
+  channels:
+    display:
+      active: false
+    touch:
+      active: false
+    mouse:
+      active: false
+    keyboard:
+      active: false
+    speaker:
+      active: false
+    mic:
+      active: false
+    camera:
+      active: false
+    gyro:
+      active: false
+    vibrate:
+      active: false
+    network:
+      active: true
+      effective_type: "4g"
+      downlink_mbps: 10000
+      rtt_ms: 1
+    storage:
+      active: true
+    battery:
+      active: false
+    gps:
+      active: false
+
+  profile: []
+
+  mirrors: []
+
+  browser_emulation: null
+
+  css_vars: {}
+  body_classes: []

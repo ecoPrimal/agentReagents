@@ -1,0 +1,103 @@
+# I/O Surface Template: touch-small-spatial
+#
+# iPhone / Pixel / mobile — touch input, small viewport, all sensors.
+# Not "mobile". Just the channels that happen to be open.
+#
+# A microphone is a speaker from the other side.
+
+name: io-surface-touch-small-spatial
+version: "1.0.0"
+description: >-
+  Touch-only surface with small viewport, spatial awareness, full sensor suite.
+  Equivalent to iPhone 14 Pro channel configuration.
+
+io_surface:
+  preset: touch-small-spatial
+  channels:
+    display:
+      active: true
+      width: 390
+      height: 844
+      dpr: 3
+      color_depth: 30
+      orientation: portrait-primary
+    touch:
+      active: true
+      points: 5
+      coarse: true
+    mouse:
+      active: false
+    keyboard:
+      active: true
+      virtual: true
+    speaker:
+      active: true
+      sample_rate: 48000
+    mic:
+      active: true
+      mirror: speaker
+      sample_rate: 48000
+    camera:
+      active: true
+      mirror: display
+      megapixels: 48
+    gyro:
+      active: true
+      rate_hz: 100
+    vibrate:
+      active: true
+      mirror: touch
+    network:
+      active: true
+      effective_type: "4g"
+      downlink_mbps: 30
+      rtt_ms: 50
+      save_data: false
+    storage:
+      active: true
+    battery:
+      active: true
+      level: 0.85
+      charging: false
+    gps:
+      active: true
+
+  profile:
+    - touch-only
+    - small
+    - spatial
+
+  mirrors:
+    - input: mic
+      output: speaker
+      medium: audio
+    - input: camera
+      output: display
+      medium: visual
+    - input: touch
+      output: vibrate
+      medium: tactile
+
+  # Browser emulation parameters (for Playwright / Puppeteer / CDP)
+  browser_emulation:
+    user_agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"
+    device_scale_factor: 3
+    is_mobile: true
+    has_touch: true
+    viewport:
+      width: 390
+      height: 844
+
+  # CSS custom properties that io-probe.js would set
+  css_vars:
+    --io-width: "390px"
+    --io-height: "844px"
+    --io-dpr: "3"
+    --io-min-tap: "44px"
+    --io-touch-points: "5"
+
+  # Expected body classes from io-probe.js
+  body_classes:
+    - io-touch-only
+    - io-small
+    - io-spatial
